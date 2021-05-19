@@ -3,13 +3,14 @@
         
         <base-nav class="navbar-main" transparent type="" effect="light" expand>
             <router-link slot="brand" class="navbar-brand mr-lg-5" to="/">
-            </router-link>        
+            </router-link>    
+                
          <div>
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 <base-dropdown class="nav-item" menu-classes="dropdown-menu-xl">
                     <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-ui-04 d-lg-none"></i>
-                        <span class="nav-link-inner--text">Registrarse</span>
+                        <span class="nav-link-inner--text" >Registrarse</span>
                     </a>
                     <div class="dropdown-menu-inner">
                         <a  @click="$router.push({ name: 'register' })" >
@@ -45,23 +46,25 @@
                 </base-dropdown>
             </ul>
             </div>
-         <button type="button" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true" ><i class="ni ni-basket"></i> Carrito</button>     
+         <button 
+           type="button" 
+           class="btn btn-secondary btn-sm active" 
+           role="button" 
+           aria-pressed="true" >
+           <i class="ni ni-basket"></i> 
+           Carrito
+         </button>     
             <div class="card-body d-flex">
-               <div class="btn-group">
-                 <div class="btn-group">
-                     <button 
-                     float= "right"
-                      type="button" 
-                      class="btn btn-primary btn-sm active dropdown-toggle"
-                      data-toggle="dropdown"
-                       @click="$router.push({ name: 'login' })"                
-                   >
-                      Login
-                   </button>
-                    
-                 </div>
-            </div>
-         </div>   
+            </div> 
+           <button 
+              float= "right"
+              type="button" 
+              class="btn btn-primary btn-sm active"
+              @click="$router.push({ name: 'login' })"                
+            > Login
+            </button>
+           
+         
                     
         </base-nav>     
         
