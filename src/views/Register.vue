@@ -94,12 +94,17 @@ export default {
         setClientData () {
             //Seteo  el type            
             try{
-                this.formData.type = "CLIENTE"    
-                //UserRepository.createUser(this.formData)
+                this.formData.type = "CLIENTE"  
+            
+                console.log(UserRepository)
+                //UserRepository.createUser
 
-                //let respuesta = UserRepository.pruebaApi(this.formData);
+                let respuesta = UserRepository.pruebaAPI(this.formData);
+                //let newUser = UserRepository.createUser(this.formData);
 
-                //console.log(respuesta);
+
+                // console.log(newUser);
+                console.log(respuesta);
 
             }catch (error) {
                console.log(error);

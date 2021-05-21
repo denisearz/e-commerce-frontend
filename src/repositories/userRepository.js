@@ -1,7 +1,5 @@
 import Axios from  'axios';
 
-
-
 export default {
 
   /**
@@ -9,10 +7,12 @@ export default {
    *
    * @returns {Promise<void>}
    */
-  pruebaAPI: async(userData) => {
+  pruebaAPI: async() => {
     try{
       
       let response = await Axios.get('https://rickandmortyapi.com/api/character');
+
+      console.log(response);
 
       return response.results;
 
