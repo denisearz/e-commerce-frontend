@@ -99,12 +99,12 @@ export default {
                 console.log(UserRepository)
                 //UserRepository.createUser
 
-                let respuesta = UserRepository.pruebaAPI(this.formData);
+                //let respuesta = UserRepository.pruebaAPI(this.formData);
                 //let newUser = UserRepository.createUser(this.formData);
 
 
                 // console.log(newUser);
-                console.log(respuesta);
+                //console.log(respuesta);
 
             }catch (error) {
                console.log(error);
