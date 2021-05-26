@@ -96,15 +96,15 @@ export default {
             try{
                 this.formData.type = "CLIENTE"  
             
-                console.log(UserRepository)
+               // console.log(UserRepository)
                 //UserRepository.createUser
 
-                //let respuesta = UserRepository.pruebaAPI(this.formData);
+                let respuesta = UserRepository.pruebaAPI();
                 //let newUser = UserRepository.createUser(this.formData);
 
 
                 // console.log(newUser);
-                //console.log(respuesta);
+                console.log(respuesta);
 
             }catch (error) {
                console.log(error);

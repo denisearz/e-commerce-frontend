@@ -10,10 +10,10 @@ export default {
   pruebaAPI: async() => {
     try{
       
-      let response = await Axios.get('https://rickandmortyapi.com/api/character');
+      let response = await Axios.get('http://localhost:80');
 
       console.log(response);
-
+      
       return response.results;
 
     }catch (eror){
