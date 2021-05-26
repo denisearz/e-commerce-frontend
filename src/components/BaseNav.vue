@@ -10,9 +10,13 @@
         <div class="container">
             <slot name="container-pre"></slot>
             <slot name="brand">
-                <a class="navbar-brand" href="#" @click.prevent="onTitleClick">
-                    {{title}}
-                </a>
+                <router-link
+                  to='/'
+                  @click.prevent="onTitleClick"
+                  class="navbar-brand"
+                >
+                {{title}}
+                </router-link>
             </slot>
             <navbar-toggle-button :toggled="toggled"
                                   :target="contentId"

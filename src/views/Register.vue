@@ -1,72 +1,72 @@
 <template>
-    <section class="section section-shaped section-lg my-0">
+    <section class="section section-shaped  my-0">
         <div class="shape shape-style-1 bg-gradient-default">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+
         </div>
         <div class="container pt-lg-md">
+            <div class = "col text-center " > 
+                <font color="white" size=6>Registro de usuarios</font>
+            </div>  
             <div class="row justify-content-center">
-                <div class="col-lg-5">
+                
+                <div class="col-7">
                     <card type="secondary" shadow
                           header-classes="bg-white pb-5"
                           body-classes="px-lg-5 py-lg-5"
                           class="border-0">
+                        
                         <template>
-                            <div class="text-muted text-center mb-3">
-                                <small>Sign in with</small>
-                            </div>
-                            <div class="btn-wrapper text-center">
-                                <base-button type="neutral">
-                                    <img slot="icon" src="img/icons/common/github.svg">
-                                    Github
-                                </base-button>
-
-                                <base-button type="neutral">
-                                    <img slot="icon" src="img/icons/common/google.svg">
-                                    Google
-                                </base-button>
-                            </div>
-                        </template>
-                        <template>
-                            <div class="text-center text-muted mb-4">
-                                <small>Or sign up with credentials</small>
-                            </div>
-                            <form role="form">
-                                <base-input alternative
-                                            class="mb-3"
-                                            placeholder="Name"
-                                            addon-left-icon="ni ni-hat-3">
-                                </base-input>
-                                <base-input alternative
-                                            class="mb-3"
-                                            placeholder="Email"
-                                            addon-left-icon="ni ni-email-83">
-                                </base-input>
-                                <base-input alternative
-                                            type="password"
-                                            placeholder="Password"
-                                            addon-left-icon="ni ni-lock-circle-open">
-                                </base-input>
-                                <div class="text-muted font-italic">
-                                    <small>password strength:
-                                        <span class="text-success font-weight-700">strong</span>
-                                    </small>
+                            
+                            <form role="form" action="/" name="frmRegister" method="post">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <i class="fas fa-envelope input-group-text"></i>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        class="form-control"  
+                                        placeholder="Ingrese su eMail" 
+                                        v-model="formData.email">
                                 </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <i class="fas fa-lock input-group-text"></i>
+                                    </div>
+                                    <input 
+                                        type="password" 
+                                        class="form-control" 
+                                        placeholder="Ingrese su password"
+                                        v-model="formData.password">
+                                </div>
+
                                 <base-checkbox>
                                     <span>I agree with the
                                         <a href="#">Privacy Policy</a>
                                     </span>
                                 </base-checkbox>
-                                <div class="text-center">
-                                    <base-button type="primary" class="my-4">Create account</base-button>
-                                </div>
+                                
                             </form>
+                        </template>
+
+                        <template>
+                            
+                            <div class="btn-wrapper text-center mt-3">
+                                <base-button 
+                                    type="primary" 
+                                    id="btnProvider"
+                                    @click="setProviderData">
+                                    <i slot="icon" class="fas fa-tools"></i> 
+                                    Soy Proveedor
+                                </base-button>
+                                <base-button 
+                                    type="primary" 
+                                    id="btnClient"
+                                    @click="setClientData">
+                                    <i slot="icon" class="fas fa-user"></i> 
+                                    Soy cliente
+                                </base-button>
+
+                            </div>
                         </template>
                     </card>
                 </div>
@@ -75,7 +75,47 @@
     </section>
 </template>
 <script>
-export default {};
+
+import UserRepository from "@/repositories/userRepository";
+
+export default {
+    name: "Register",
+    data () {
+        return{
+            formData: {
+                email: "",
+                password: "",
+                type: ""
+            },
+        };       
+    },
+
+    methods: {
+        setClientData () {
+            //Seteo  el type            
+            try{
+                this.formData.type = "CLIENTE"  
+            
+               // console.log(UserRepository)
+                //UserRepository.createUser
+
+                let respuesta = UserRepository.pruebaAPI();
+                //let newUser = UserRepository.createUser(this.formData);
+
+
+                // console.log(newUser);
+                console.log(respuesta);
+
+            }catch (error) {
+               console.log(error);
+            }
+        
+        },
+        setProviderData () {
+            this.formData.type = "PROVEEDOR"
+            console.log(this.formData)
+        }
+    }
+}
 </script>
-<style>
-</style>
+
