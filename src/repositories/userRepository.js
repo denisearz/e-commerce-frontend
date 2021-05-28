@@ -1,5 +1,5 @@
 import Axios from  'axios';
-
+const BASEURL = process.env.VUE_APP_BASEURL;
 export default {
 
   /**
@@ -10,7 +10,7 @@ export default {
   pruebaAPI: async() => {
     try{
       
-      let response = await Axios.get('http://localhost:80');
+      let response = await Axios.get(`${BASEURL}`);
 
       console.log(response);
       

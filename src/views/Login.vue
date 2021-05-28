@@ -1,83 +1,84 @@
 <template>
-    <section class="section section-shaped section-lg my-0">
+    <section class="section section-shaped  my-0">
         <div class="shape shape-style-1 bg-gradient-default">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+
         </div>
         <div class="container pt-lg-md">
+            <div class = "col text-center " > 
+                <font color="white" size=6>Login</font>
+            </div>  
             <div class="row justify-content-center">
-                <div class="col-lg-5">
+                
+                <div class="col-7">
                     <card type="secondary" shadow
                           header-classes="bg-white pb-5"
                           body-classes="px-lg-5 py-lg-5"
                           class="border-0">
+                        
                         <template>
-                            <div class="text-muted text-center mb-3">
-                                <small>Sign in with</small>
-                            </div>
-                            <div class="btn-wrapper text-center">
-                                <base-button type="neutral">
-                                    <i class="fa fa-wrench" aria-hidden="true"></i>
-                                    Proveedor
-                                </base-button>
-
-                                <base-button type="neutral">
-                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                    Usuario
-                                </base-button>
-                            </div>
-                        </template>
-                        <template>
-                            <div class="text-center text-muted mb-4">
-                                <small>Or sign in with credentials</small>
-                            </div>
-                            <form role="form">
-                                <base-input alternative
-                                            class="mb-3"
-                                            placeholder="Email"
-                                            addon-left-icon="ni ni-email-83">
-                                </base-input>
-                                <base-input alternative
-                                            type="password"
-                                            placeholder="Password"
-                                            addon-left-icon="ni ni-lock-circle-open">
-                                </base-input>
-                                <base-checkbox>
-                                    Remember me
-                                </base-checkbox>
-                                <div class="text-center">
-                                    <base-button type="primary" class="my-4">Sign In</base-button>
+                            
+                            <form 
+                            role="form" 
+                            action="/" 
+                            name="frmRegister" 
+                            method="post"
+                            @submit.prevent="handleSubmit"
+                           >
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <i class="fas fa-envelope input-group-text"></i>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        class="form-control"  
+                                        placeholder="Ingrese su eMail" 
+                                        v-model="email"
+                                        >
                                 </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <i class="fas fa-lock input-group-text"></i>
+                                    </div>
+                                    <input 
+                                        type="password" 
+                                        class="form-control" 
+                                        placeholder="Ingrese su contraseña"
+                                        v-model="password"
+                                        >
+                                </div>
+                                <button class="btn btn-primary btn-block">Login</button>
                             </form>
                         </template>
                     </card>
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            <a href="#" class="text-light">
-                                <small>Forgot password?</small>
-                            </a>
-                        </div>
-                        <div class="col-6 text-right">
-                            <a href="#" class="text-light">
-                                <small>Create new account</small>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 </template>
 <script>
+import axios from 'axios';
+const BASEURL = process.env.VUE_APP_BASEURL;
+
 export default {
     name: "login",
+    data () {
+        return{
+            email:"",
+            password:"",
+        };       
+    },
+    methods: {
+        async handleSubmit() {
+            const response = await axios.post(`${BASEURL}/auth/login`, {
+                email: this.email,
+                password: this.password
+            });
+
+            console.log(response)
+        }
+    }
 };
+
 </script>
 <style>
 </style>

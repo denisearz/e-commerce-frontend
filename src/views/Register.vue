@@ -17,7 +17,20 @@
                         
                         <template>
                             
-                            <form role="form" action="/" name="frmRegister" method="post">
+                            <form 
+                            role="form" 
+                            action="/" 
+                            name="frmRegister" 
+                            method="post"
+                            @submit.prevent="handleSubmit">
+                                <div class="input-group mb-3">
+                                    
+                                    <input 
+                                        type="text" 
+                                        class="form-control"  
+                                        placeholder="Ingrese su nombre" 
+                                        v-model="user.name">
+                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <i class="fas fa-envelope input-group-text"></i>
@@ -26,7 +39,7 @@
                                         type="text" 
                                         class="form-control"  
                                         placeholder="Ingrese su eMail" 
-                                        v-model="formData.email">
+                                        v-model="user.email">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -36,37 +49,32 @@
                                         type="password" 
                                         class="form-control" 
                                         placeholder="Ingrese su password"
-                                        v-model="formData.password">
+                                        v-model="user.password">
                                 </div>
-
-                                <base-checkbox>
-                                    <span>I agree with the
-                                        <a href="#">Privacy Policy</a>
-                                    </span>
-                                </base-checkbox>
-                                
-                            </form>
-                        </template>
-
-                        <template>
-                            
-                            <div class="btn-wrapper text-center mt-3">
+                                <div class="btn-wrapper text-center mt-3">
                                 <base-button 
                                     type="primary" 
                                     id="btnProvider"
-                                    @click="setProviderData">
+                                    @click="setProviderData"
+                                    :disabled="user.user_type === 'CLIENTE'"
+                                    >
                                     <i slot="icon" class="fas fa-tools"></i> 
                                     Soy Proveedor
                                 </base-button>
                                 <base-button 
                                     type="primary" 
                                     id="btnClient"
-                                    @click="setClientData">
+                                    @click="setClientData"
+                                    :disabled="user.user_type === 'PROVEEDOR'"
+                                    >
                                     <i slot="icon" class="fas fa-user"></i> 
                                     Soy cliente
                                 </base-button>
 
                             </div>
+                            <button class="btn btn-danger btn-block mt-5">Register</button>
+
+                            </form>
                         </template>
                     </card>
                 </div>
@@ -77,43 +85,49 @@
 <script>
 
 import UserRepository from "@/repositories/userRepository";
+const BASEURL = process.env.VUE_APP_BASEURL;
+import axios from 'axios';
 
 export default {
     name: "Register",
     data () {
         return{
-            formData: {
+            user: {
+                name:"",
                 email: "",
                 password: "",
-                type: ""
+                user_type: ""
             },
         };       
     },
 
     methods: {
+        async handleSubmit() {
+            const response = await axios.post(`${BASEURL}/auth/register`, {
+                name: this.user.name,
+                email: this.user.email,
+                password: this.user.password,
+                user_type: this.user.user_type
+            });
+            console.log(response)
+            localStorage.setItem('token', response.data.access_token)
+        },
+
         setClientData () {
             //Seteo  el type            
             try{
-                this.formData.type = "CLIENTE"  
-            
-               // console.log(UserRepository)
-                //UserRepository.createUser
-
-                let respuesta = UserRepository.pruebaAPI();
-                //let newUser = UserRepository.createUser(this.formData);
-
-
-                // console.log(newUser);
-                console.log(respuesta);
-
+                this.user.user_type = "CLIENTE"  
             }catch (error) {
                console.log(error);
             }
         
         },
         setProviderData () {
-            this.formData.type = "PROVEEDOR"
-            console.log(this.formData)
+            try{
+                this.user.user_type = "PROVEEDOR"  
+            }catch (error) {
+               console.log(error);
+            }
         }
     }
 }
