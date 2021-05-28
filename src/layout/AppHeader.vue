@@ -8,21 +8,6 @@
       expand
       >
      
-      <div>
-        <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-          <base-dropdown tag="li" class="nav-item">
-            <a slot="title" href="/" class="nav-link" data-toggle="dropdown" role="button">
-                <i class="ni ni-collection d-lg-none"></i>
-                <span class="nav-link-inner--text">Servicios</span>
-            </a>
-            <router-link to="/landing" class="dropdown-item">Cerrajero</router-link>
-            <router-link to="/profile" class="dropdown-item">Electricista</router-link>
-            <router-link to="/login" class="dropdown-item">Gasista</router-link>
-            <router-link to="/register" class="dropdown-item">Plomero</router-link>
-          </base-dropdown>
-        </ul>
-      </div>
-          
       <div class="card-body d-flex"> </div>
 
       <div class="d-flex">

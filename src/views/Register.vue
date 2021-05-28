@@ -84,7 +84,7 @@
 </template>
 <script>
 
-import UserRepository from "@/repositories/userRepository";
+import router from '../router'
 const BASEURL = process.env.VUE_APP_BASEURL;
 import axios from 'axios';
 
@@ -111,6 +111,13 @@ export default {
             });
             console.log(response)
             localStorage.setItem('token', response.data.access_token)
+            
+            if (this.user.user_type === 'PROVEEDOR') {
+                router.push('/provider/create')
+            }
+            if (this.user.user_type === 'CLIENTE') {
+                router.push('/client/create')
+            }
         },
 
         setClientData () {
