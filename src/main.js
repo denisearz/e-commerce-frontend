@@ -22,10 +22,13 @@ import Argon from "./plugins/argon-kit";
 import './registerServiceWorker';
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.config.productionTip = false;
 Vue.use(Argon);
 new Vue({
   router,
+  BootstrapVue,
+  IconsPlugin,
   render: h => h(App)
 }).$mount("#app");

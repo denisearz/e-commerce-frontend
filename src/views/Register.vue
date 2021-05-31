@@ -84,7 +84,7 @@
 </template>
 <script>
 
-import UserRepository from "@/repositories/userRepository";
+import router from '../router'
 const BASEURL = process.env.VUE_APP_BASEURL;
 import axios from 'axios';
 
@@ -103,14 +103,18 @@ export default {
 
     methods: {
         async handleSubmit() {
-            const response = await axios.post(`${BASEURL}/auth/register`, {
+            const user = await axios.post(`${BASEURL}/auth/register`, {
                 name: this.user.name,
                 email: this.user.email,
                 password: this.user.password,
                 user_type: this.user.user_type
             });
-            console.log(response)
-            localStorage.setItem('token', response.data.access_token)
+            if (this.user.user_type === 'PROVEEDOR') {
+                router.push({name:'ProviderRegister',params:{id:user.data[0].id}});            
+            }
+            if (this.user.user_type === 'CLIENTE') {
+                router.push('/client/create')
+            }
         },
 
         setClientData () {

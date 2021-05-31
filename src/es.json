@@ -7,3 +7,7 @@
       "add-comment": "Añadir comentario",
       "close": "Cerrar"
     },
+    "providers": {
+      "cuit": "Ingrese su número de CUIT"
+    }
+}

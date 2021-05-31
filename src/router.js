@@ -7,7 +7,7 @@ import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
-import ProvidersRegister from "./views/providers/ProvidersRegister";
+import ProviderRegister from "./views/providers/ProviderRegister";
 
 Vue.use(Router);
 
@@ -60,11 +60,11 @@ export default new Router({
       }
     },
     {
-      path: "/register/providers",
-      name: "ProvidersRegister",
+      path: "/provider/create",
+      name: "ProviderRegister",
       components: {
         header: AppHeader,
-        default: ProvidersRegister,
+        default: ProviderRegister,
         footer: AppFooter
       }
     }
