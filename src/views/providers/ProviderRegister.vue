@@ -5,6 +5,7 @@
         </div>
         <div class="container pt-lg-md">
             <div class = "col text-center " > 
+                
                 <font color="white" size=6>Registro de proveedores</font>
             </div>  
             <div class="row justify-content-center">
@@ -32,22 +33,28 @@
                                         placeholder="##-########-#"
                                         />
                                 </div>
-                                <div><p>Ingrese su número de Email</p></div>
+                                <div><p>Ingrese su número de matrícula</p></div>
+                                <div class="input-group mb-3">
+                                    <input 
+                                        type="number" 
+                                        class="form-control"  
+                                        placeholder="Ingrese su N° de matrícula" 
+                                        v-model="provider.enrollment_number">
+                                </div>
+                                <div><p>Nombre de fantasía</p></div>
                                 <div class="input-group mb-3">
                                     <input 
                                         type="text" 
-                                        class="form-control"  
-                                        placeholder="example@gmail.com" 
-                                        v-model="provider.email">
-                                </div>
-                                <div><p>Número de matrícula</p></div>
-                                <div class="input-group mb-3">
-                                    <input 
-                                        type="password" 
                                         class="form-control" 
-                                        placeholder="Ingrese su N° de matrícula"
-                                        v-model="provider.password">
+                                        placeholder="Razón social"
+                                        v-model="provider.business_name">
                                 </div>
+                               
+                                    <div>
+                                        <div><p>Zona de trabajo</p></div>
+                                        <b-form-select v-model="selected" :options="options"></b-form-select>
+                                    </div>
+                              
                             <button class="btn btn-danger btn-block mt-5">Register</button>
 
                             </form>
@@ -62,28 +69,44 @@
 import router from '../../router'
 const BASEURL = process.env.VUE_APP_BASEURL;
 import axios from 'axios';
+import Vue from 'vue';
+import { BootstrapVue } from 'bootstrap-vue';
+Vue.use(BootstrapVue);
 
 export default {
-    name: "Register",
+    name: "ProviderRegister",
     data () {
         return{
             provider: {
                 cuit:"",
-                email: "",
-                password: "",
+                enrollment_number:"",
+                business_name:"",
+                city_id:"",
+                user_id:""
             },
+            selected: null,
+            options: [
+            { value: "1", text: "GBA ZONA NORTE" },
+            { value: "2", text: "GBA ZONA ESTE" },
+            { value: "3", text: "GBA ZONA OESTE" },
+            { value: "4", text: "GBA ZONA SUR" },
+            { value: "5", text: "CABA" },
+            { value: "6", text: "LA PLATA" },
+            { value: "7", text: "ZARATE-CAMPANA" }
+        ]
         };       
     },
 
     methods: {
         async handleSubmit() {
-            const response = await axios.post(`${BASEURL}/auth/register`, {
-                name: this.provider.name,
-                email: this.provider.email,
-                password: this.provider.password,
+            await axios.post(`${BASEURL}/provider/create`, {
+                cuit_number: this.provider.cuit,
+                enrollment_number: this.provider.enrollment_number,
+                business_name: this.provider.business_name,
+                user_id: this.$route.params.id,
+                city_id: this.selected
             });
-            console.log(response)
-            localStorage.setItem('token', response.data.access_token)
+            router.push('/login')
         },
     }
 }
