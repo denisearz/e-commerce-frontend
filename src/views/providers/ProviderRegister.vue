@@ -6,7 +6,7 @@
         <div class="container pt-lg-md">
             <div class = "col text-center " > 
                 
-                <font color="white" size=6>Registro de proveedores</font>
+                <font color="white" size=6>Completá tus datos</font>
             </div>  
             <div class="row justify-content-center">
                 
@@ -17,13 +17,23 @@
                           class="border-0">
                         
                         <template>
-                            
                             <form 
                             role="form" 
                             action="/" 
                             name="frmRegister" 
                             method="post"
                             @submit.prevent="handleSubmit">
+
+                            <div><p>Cambiar email de contacto</p></div>
+                                <div class="input-group mb-3">
+                                    <input 
+                                        type="text" 
+                                        class="form-control"  
+                                        v-model="provider.email"
+                                        placeholder="Ingrese nuevo email"
+                                        />
+                                       
+                                </div>
                             <div><p>Ingrese su número de CUIT</p></div>
                                 <div class="input-group mb-3">
                                     <input 
@@ -78,6 +88,7 @@ export default {
     data () {
         return{
             provider: {
+                email:this.$route.params.email,
                 cuit:"",
                 enrollment_number:"",
                 business_name:"",
@@ -100,6 +111,7 @@ export default {
     methods: {
         async handleSubmit() {
             await axios.post(`${BASEURL}/provider/create`, {
+                email: this.provider.email,
                 cuit_number: this.provider.cuit,
                 enrollment_number: this.provider.enrollment_number,
                 business_name: this.provider.business_name,
@@ -108,7 +120,23 @@ export default {
             });
             router.push('/login')
         },
+        
     }
 }
 </script>
+<style scoped>
+#btnClient{
+    padding: 2;
+    margin: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fa-edit{
+    width:20px;
+    height: 90%;
+    color: black;
+    
+}
+</style>
 
