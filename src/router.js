@@ -8,6 +8,7 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 import ProviderRegister from "./views/providers/ProviderRegister";
+import ClientRegister from "./views/clients/ClientRegister";
 
 Vue.use(Router);
 
@@ -65,6 +66,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: ProviderRegister,
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/client/create",
+      name: "ClientRegister",
+      components: {
+        header: AppHeader,
+        default: ClientRegister,
         footer: AppFooter
       }
     }

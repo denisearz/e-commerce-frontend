@@ -5,8 +5,7 @@
         </div>
         <div class="container pt-lg-md">
             <div class = "col text-center " > 
-                
-                <font color="white" size=6>Registro de proveedores</font>
+                <font color="white" size=6>Bienvenido/a {{ client.name }}</font>
             </div>  
             <div class="row justify-content-center">
                 
@@ -24,37 +23,41 @@
                             name="frmRegister" 
                             method="post"
                             @submit.prevent="handleSubmit">
-                            <div><p>Ingrese su número de CUIT</p></div>
+                            <div><p>Nombre</p></div>
+                                <div class="input-group mb-3">
+                                    
+                                    <input 
+                                        type="text" 
+                                        class="form-control"  
+                                        placeholder="Ingrese su nombre" 
+                                        v-model="client.name"
+                                        >
+                                </div>
+                            <div><p>Apellido</p></div>
                                 <div class="input-group mb-3">
                                     <input 
                                         type="text" 
                                         class="form-control"  
-                                        v-model="provider.cuit"
-                                        placeholder="##-########-#"
-                                        />
+                                        placeholder="Ingrese su apellido" 
+                                        v-model="client.last_name">
                                 </div>
-                                <div><p>Ingrese su número de matrícula</p></div>
+                            <div><p>Email de contacto</p></div>
                                 <div class="input-group mb-3">
                                     <input 
                                         type="text" 
                                         class="form-control"  
-                                        placeholder="Ingrese su N° de matrícula" 
-                                        v-model="provider.enrollment_number">
+                                        placeholder="Email" 
+                                        v-model="client.email">
                                 </div>
-                                <div><p>Nombre de fantasía</p></div>
+                            <div><p>N° de teléfono</p></div>
                                 <div class="input-group mb-3">
                                     <input 
                                         type="text" 
                                         class="form-control" 
-                                        placeholder="Razón social"
-                                        v-model="provider.business_name">
+                                        placeholder="Ingrese su N° de teléfono"
+                                        v-model="client.phone_number">
                                 </div>
-                               
-                                    <div>
-                                        <div><p>Zona de trabajo</p></div>
-                                        <b-form-select v-model="selected" :options="options"></b-form-select>
-                                    </div>
-                              
+                                
                             <button class="btn btn-danger btn-block mt-5">Register</button>
 
                             </form>
@@ -66,45 +69,33 @@
     </section>
 </template>
 <script>
-import router from '../../router'
+
+import router from '../../router';
 const BASEURL = process.env.VUE_APP_BASEURL;
 import axios from 'axios';
-import Vue from 'vue';
-import { BootstrapVue } from 'bootstrap-vue';
-Vue.use(BootstrapVue);
 
 export default {
-    name: "ProviderRegister",
+    name: "ClientRegister",
     data () {
         return{
-            provider: {
-                cuit:"",
-                enrollment_number:"",
-                business_name:"",
-                city_id:"",
-                user_id:""
+            client: {
+                name:"",
+                last_name: "",
+                email:this.$route.params.email,
+                phone_number: "",
+                user_id: ""
             },
-            selected: null,
-            options: [
-            { value: "1", text: "GBA ZONA NORTE" },
-            { value: "2", text: "GBA ZONA ESTE" },
-            { value: "3", text: "GBA ZONA OESTE" },
-            { value: "4", text: "GBA ZONA SUR" },
-            { value: "5", text: "CABA" },
-            { value: "6", text: "LA PLATA" },
-            { value: "7", text: "ZARATE-CAMPANA" }
-        ]
         };       
     },
 
-    methods: {
+     methods: {
         async handleSubmit() {
-            await axios.post(`${BASEURL}/provider/create`, {
-                cuit_number: this.provider.cuit,
-                enrollment_number: this.provider.enrollment_number,
-                business_name: this.provider.business_name,
+            await axios.post(`${BASEURL}/client/create`, {
+                cuit_number: this.client.name,
+                enrollment_number: this.client.last_name,
+                email: this.clien.email,
+                business_name: this.client.phone_number,
                 user_id: this.$route.params.id,
-                city_id: this.selected
             });
             router.push('/login')
         },

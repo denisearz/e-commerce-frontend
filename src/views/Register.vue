@@ -24,14 +24,6 @@
                             method="post"
                             @submit.prevent="handleSubmit">
                                 <div class="input-group mb-3">
-                                    
-                                    <input 
-                                        type="text" 
-                                        class="form-control"  
-                                        placeholder="Ingrese su nombre" 
-                                        v-model="user.name">
-                                </div>
-                                <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <i class="fas fa-envelope input-group-text"></i>
                                     </div>
@@ -93,7 +85,6 @@ export default {
     data () {
         return{
             user: {
-                name:"",
                 email: "",
                 password: "",
                 user_type: ""
@@ -104,16 +95,16 @@ export default {
     methods: {
         async handleSubmit() {
             const user = await axios.post(`${BASEURL}/auth/register`, {
-                name: this.user.name,
                 email: this.user.email,
                 password: this.user.password,
                 user_type: this.user.user_type
             });
+            console.log(user.data[0].email);
             if (this.user.user_type === 'PROVEEDOR') {
-                router.push({name:'ProviderRegister',params:{id:user.data[0].id}});            
+                router.push({name:'ProviderRegister',params:{id:user.data[0].id, email:user.data[0].email}});            
             }
             if (this.user.user_type === 'CLIENTE') {
-                router.push('/client/create')
+                router.push({name:'ClientRegister',params:{id:user.data[0].id, email:user.data[0].email}});            
             }
         },
 
