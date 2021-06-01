@@ -75,7 +75,7 @@ export default {
             });
             localStorage.setItem('token', response.data.access_token)
 
-            console.log(response)
+            router.push('/')
         }
     }
 };
