@@ -15,7 +15,9 @@
                           header-classes="bg-white pb-5"
                           body-classes="px-lg-5 py-lg-5"
                           class="border-0">
-                        
+                        <div class = "col text-center" >          
+                            <font color="white" size=4>Paso 1-2</font>
+                        </div>
                         <template>
                             <form 
                             role="form" 
@@ -66,62 +68,8 @@
                                     v-model="selected" 
                                     :options="cities"
                                     ></b-form-select>
-                                </div>
-
-                            <div>
-                                <div>
-                                    <p>Seleccione el servicio que brinda</p>
-                                </div>
-                                    <b-form-select 
-                                    :options="categories"
-                                    v-model="categoriesSelected" 
-
-                                    >
-                                    </b-form-select>
-                            </div> 
-                             <!-- MULTISELECT    -->
-                        <!-- <multiselect
-                        v-model="selected"
-                        :options="specialitiesArray"
-                        @update="updateSelected"
-                        >
-                        </multiselect> -->
-                        <template>
-                            <div>
-                                <div>
-                                    <label class="typo__label">Indique su especialidad</label>
-                                    <multiselect 
-                                    v-model="value" 
-                                    placeholder="Agregue especialidad" 
-                                    label="name" 
-                                    track-by="code" 
-                                    :options="options" 
-                                    :multiple="true" 
-                                    :taggable="true" 
-                                    @tag="addTag">
-                                    </multiselect>
-                                </div>
-                                <!-- <multiselect 
-                                v-model="value" 
-                                :options="options"
-                                :taggable="true"
-                                tag-placeholder="Add this as new tag"
-                                tag-position="bottom"
-                                
-                                
-                                ></multiselect> -->
-                            </div>
-                        </template>
-
-
-        
-                            
-
-
-                            
-                                                                                                                
-                            <button class="btn btn-danger btn-block mt-5">Confirmar</button>
-
+                                </div>                                                                                                                                                                  
+                           <button class="btn btn-danger btn-block mt-5">Siguiente</button>
                             </form>
                         </template>
                     </card>
@@ -137,8 +85,6 @@ import axios from 'axios';
 import Vue from 'vue';
 import { BootstrapVue } from 'bootstrap-vue';
 Vue.use(BootstrapVue);
-import Multiselect from 'vue-multiselect';
-Vue.component('multiselect', Multiselect)
 
 import {
   cities,
@@ -150,18 +96,6 @@ export default {
     data () {
         return{
             cities,
-            categories,
-        //    value: null,
-         value: [
-         { name: 'TEST2', code: 'vu' },
-        { name: 'TEST3', code: 'js' },
-        { name: 'TEST4', code: 'os' }
-      ],
-      options: [
-        { name: 'TEST2', code: 'vu' },
-        { name: 'TEST3', code: 'js' },
-        { name: 'TEST4', code: 'os' }
-      ],
             provider: {
                 email:this.$route.params.email,
                 cuit:"",
@@ -172,52 +106,27 @@ export default {
             },
             selected: null,
             categoriesSelected: null,
-            
+
         };       
     },
-    components: { Multiselect },
-
-    // created(){
-    //     this.fetchSpecialities();
-
-    // },
-
-    // computed:{
-    //     specialitiesArray(){
-    //         return _.map(this.specialities, function(id){return specialities.id})
-    //     }
-    // },
-
     methods: {
         async handleSubmit() {
+            
             await axios.post(`${BASEURL}/provider/create`, {
                 email: this.provider.email,
                 cuit_number: this.provider.cuit,
                 enrollment_number: this.provider.enrollment_number,
                 business_name: this.provider.business_name,
                 user_id: this.$route.params.id,
-                city_id: this.selected,
-                category_id: this.categoriesSelected
-            });
-            router.push('/login')
+                city_id: this.selected
+            });                                
+            router.push({name:'providerCategories',params:{id:provider.data.id}});
+            
         },
-        addTag (newTag) {
-      const tag = {
-        name: newTag,
-        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
-      }
-      this.options.push(tag)
-      this.value.push(tag)
     }
-  }
-        // fetchSpecialities(){
-        //     this.$http.get('api/specialities').then(response =>{
-        //         this.specialities = response.data.specialities;
-        //     })
-        // }
 
         
-    }
+}
 
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
