@@ -6,7 +6,7 @@
         <div class="container pt-lg-md">
             <div class = "col text-center " > 
                 
-                <font color="white" size=6>Completá tus datos</font>
+                <font color="white" size=6>Registrarse como Proveedor</font>
             </div>  
             <div class="row justify-content-center">
                 
@@ -24,7 +24,7 @@
                             method="post"
                             @submit.prevent="handleSubmit">
 
-                            <div><p>Cambiar email de contacto</p></div>
+                            <div><p>Ingrese e-mail de contacto</p></div>
                                 <div class="input-group mb-3">
                                     <input 
                                         type="text" 
@@ -60,18 +60,67 @@
                                         v-model="provider.business_name">
                                 </div>
                                
-                                    <div>
-                                        <div><p>Zona de trabajo</p></div>
-                                        <b-form-select 
-                                        v-model="selected" 
-                                        :options="cities"
-                                        ></b-form-select>
-                                    </div>
-                                
+                                <div>
+                                    <div><p>Zona de trabajo</p></div>
+                                    <b-form-select 
+                                    v-model="selected" 
+                                    :options="cities"
+                                    ></b-form-select>
+                                </div>
 
-                                    
-                              
-                            <button class="btn btn-danger btn-block mt-5">Register</button>
+                            <div>
+                                <div>
+                                    <p>Seleccione el servicio que brinda</p>
+                                </div>
+                                    <b-form-select 
+                                    :options="categories"
+                                    v-model="categoriesSelected" 
+
+                                    >
+                                    </b-form-select>
+                            </div> 
+                             <!-- MULTISELECT    -->
+                        <!-- <multiselect
+                        v-model="selected"
+                        :options="specialitiesArray"
+                        @update="updateSelected"
+                        >
+                        </multiselect> -->
+                        <template>
+                            <div>
+                                <div>
+                                    <label class="typo__label">Indique su especialidad</label>
+                                    <multiselect 
+                                    v-model="value" 
+                                    placeholder="Agregue especialidad" 
+                                    label="name" 
+                                    track-by="code" 
+                                    :options="options" 
+                                    :multiple="true" 
+                                    :taggable="true" 
+                                    @tag="addTag">
+                                    </multiselect>
+                                </div>
+                                <!-- <multiselect 
+                                v-model="value" 
+                                :options="options"
+                                :taggable="true"
+                                tag-placeholder="Add this as new tag"
+                                tag-position="bottom"
+                                
+                                
+                                ></multiselect> -->
+                            </div>
+                        </template>
+
+
+        
+                            
+
+
+                            
+                                                                                                                
+                            <button class="btn btn-danger btn-block mt-5">Confirmar</button>
 
                             </form>
                         </template>
@@ -88,7 +137,8 @@ import axios from 'axios';
 import Vue from 'vue';
 import { BootstrapVue } from 'bootstrap-vue';
 Vue.use(BootstrapVue);
-import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect';
+Vue.component('multiselect', Multiselect)
 
 import {
   cities,
@@ -101,6 +151,17 @@ export default {
         return{
             cities,
             categories,
+        //    value: null,
+         value: [
+         { name: 'TEST2', code: 'vu' },
+        { name: 'TEST3', code: 'js' },
+        { name: 'TEST4', code: 'os' }
+      ],
+      options: [
+        { name: 'TEST2', code: 'vu' },
+        { name: 'TEST3', code: 'js' },
+        { name: 'TEST4', code: 'os' }
+      ],
             provider: {
                 email:this.$route.params.email,
                 cuit:"",
@@ -110,11 +171,23 @@ export default {
                 user_id:""
             },
             selected: null,
+            categoriesSelected: null,
+            
         };       
     },
-    components: {
-        Multiselect
-    },
+    components: { Multiselect },
+
+    // created(){
+    //     this.fetchSpecialities();
+
+    // },
+
+    // computed:{
+    //     specialitiesArray(){
+    //         return _.map(this.specialities, function(id){return specialities.id})
+    //     }
+    // },
+
     methods: {
         async handleSubmit() {
             await axios.post(`${BASEURL}/provider/create`, {
@@ -123,14 +196,31 @@ export default {
                 enrollment_number: this.provider.enrollment_number,
                 business_name: this.provider.business_name,
                 user_id: this.$route.params.id,
-                city_id: this.selected
+                city_id: this.selected,
+                category_id: this.categoriesSelected
             });
             router.push('/login')
         },
+        addTag (newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+      }
+      this.options.push(tag)
+      this.value.push(tag)
+    }
+  }
+        // fetchSpecialities(){
+        //     this.$http.get('api/specialities').then(response =>{
+        //         this.specialities = response.data.specialities;
+        //     })
+        // }
+
         
     }
-}
+
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
 #btnClient{
     padding: 2;

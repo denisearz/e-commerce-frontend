@@ -5,7 +5,7 @@
         </div>
         <div class="container pt-lg-md">
             <div class = "col text-center " > 
-                <font color="white" size=6>Registro de usuarios</font>
+                n
             </div>  
             <div class="row justify-content-center">
                 
@@ -64,7 +64,7 @@
                                 </base-button>
 
                             </div>
-                            <button class="btn btn-danger btn-block mt-5">Register</button>
+                            <button class="btn btn-danger btn-block mt-5">Registrarse</button>
 
                             </form>
                         </template>
