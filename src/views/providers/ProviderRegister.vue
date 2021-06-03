@@ -62,8 +62,14 @@
                                
                                     <div>
                                         <div><p>Zona de trabajo</p></div>
-                                        <b-form-select v-model="selected" :options="options"></b-form-select>
+                                        <b-form-select 
+                                        v-model="selected" 
+                                        :options="cities"
+                                        ></b-form-select>
                                     </div>
+                                
+
+                                    
                               
                             <button class="btn btn-danger btn-block mt-5">Register</button>
 
@@ -82,11 +88,19 @@ import axios from 'axios';
 import Vue from 'vue';
 import { BootstrapVue } from 'bootstrap-vue';
 Vue.use(BootstrapVue);
+import Multiselect from 'vue-multiselect'
+
+import {
+  cities,
+  categories
+} from "../../constants/constants";
 
 export default {
     name: "ProviderRegister",
     data () {
         return{
+            cities,
+            categories,
             provider: {
                 email:this.$route.params.email,
                 cuit:"",
@@ -96,18 +110,11 @@ export default {
                 user_id:""
             },
             selected: null,
-            options: [
-            { value: "1", text: "GBA ZONA NORTE" },
-            { value: "2", text: "GBA ZONA ESTE" },
-            { value: "3", text: "GBA ZONA OESTE" },
-            { value: "4", text: "GBA ZONA SUR" },
-            { value: "5", text: "CABA" },
-            { value: "6", text: "LA PLATA" },
-            { value: "7", text: "ZARATE-CAMPANA" }
-        ]
         };       
     },
-
+    components: {
+        Multiselect
+    },
     methods: {
         async handleSubmit() {
             await axios.post(`${BASEURL}/provider/create`, {
@@ -138,5 +145,6 @@ export default {
     color: black;
     
 }
+
 </style>
 

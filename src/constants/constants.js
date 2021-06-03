@@ -7,3 +7,12 @@ export const cities = [
     { value: "6", text: "LA PLATA" },
     { value: "7", text: "ZARATE-CAMPANA" }
   ];
+
+export const categories = [
+    { value: "1", text: "GASISTA" },  
+    { value: "2", text: "PLOMERO" },  
+    { value: "3", text: "ELECTRICISTA" },
+    { value: "4", text: "PINTOR" },
+    { value: "5", text: "TECNICO DE AIRE ACONDICIONADO" }
+]
+

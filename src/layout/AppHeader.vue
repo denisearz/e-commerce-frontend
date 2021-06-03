@@ -52,7 +52,7 @@ export default {
 </script>
 <style>
 .header-global{
-  background-color: blue;
+  background-color: black;
 }
 .login{
   color: white;
