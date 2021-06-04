@@ -1,13 +1,27 @@
 <template>
-  <section class="section section-shaped my-0">
-    <div class="shape shape-style-1 bg-gradient-default"></div>
+  <section class="background">
+    <div style="height: 150px; overflow: hidden">
+      <svg
+        viewBox="0 0 500 150"
+        preserveAspectRatio="none"
+        style="height: 100%; width: 100%"
+      >
+        <path
+          d="M-1.97,8.39 C116.53,90.28 271.49,-49.98 503.67,35.03 L499.72,-2.45 L-0.84,-1.47 Z"
+          style="stroke: none; fill: #454546"
+        ></path>
+      </svg>
+    </div>
     <div class="container pt-lg-md">
       <div class="col text-center">
-        <font color="white" size="6">Registrarse como Proveedor</font>
+        <font color="white" size="6"
+          >Registrarse como Proveedor</font
+        >
       </div>
       <div class="row justify-content-center">
         <div class="col-7">
           <card
+            id="template"
             type="secondary"
             shadow
             header-classes="bg-white pb-5"
@@ -28,8 +42,9 @@
                 <template>
                   <div>
                     <div>
-                      <div size="6"><p>Indique su categoría</p></div>
+                      <div size="6"><p>Seleccione su categoría</p></div>
                       <multiselect
+                        id="registerInput"
                         v-model="value"
                         placeholder="Seleccione el serivicio que brindará"
                         label="name"
