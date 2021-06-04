@@ -3,7 +3,6 @@
     <base-nav 
       class="navbar-main" 
       transparent type="" 
-      effect="light"
       title="E-TEAM"
       expand
       >
@@ -14,6 +13,7 @@
         <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
           <router-link
             class="nav-link"
+            id="register"
             to="/register"
           >
             Registrarse
@@ -25,7 +25,7 @@
           <button 
               float= "right"
               type="button" 
-              class="btn btn-primary btn-sm active"
+              class="btn btn-primary btn-sm active login"
               @click="$router.push({ name: 'login' })"                
             > Login
           </button>
@@ -51,4 +51,17 @@ export default {
 };
 </script>
 <style>
+.header-global{
+  background-color: black;
+}
+.login{
+  color: white;
+}
+.fa-shopping-cart{
+  color: white;
+}
+#register{
+  color: white;
+}
+
 </style>

@@ -23,10 +23,13 @@ import './registerServiceWorker';
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import Multiselect from 'vue-multiselect'
+Vue.component('multiselect', Multiselect)
 
 Vue.config.productionTip = false;
 Vue.use(Argon);
 new Vue({
+  Multiselect,
   router,
   BootstrapVue,
   IconsPlugin,

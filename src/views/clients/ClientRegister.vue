@@ -22,7 +22,7 @@
                             action="/" 
                             name="frmRegister" 
                             method="post"
-                            @submit.prevent="handleSubmit">
+                            @submit.prevent="submitClient">
                             <div><p>Nombre</p></div>
                                 <div class="input-group mb-3">
                                     
@@ -58,6 +58,7 @@
                                         v-model="client.phone_number">
                                 </div>
                                 
+                                
                             <button class="btn btn-danger btn-block mt-5">Register</button>
 
                             </form>
@@ -89,12 +90,12 @@ export default {
     },
 
      methods: {
-        async handleSubmit() {
+        async submitClient() {
             await axios.post(`${BASEURL}/client/create`, {
-                cuit_number: this.client.name,
-                enrollment_number: this.client.last_name,
-                email: this.clien.email,
-                business_name: this.client.phone_number,
+                name: this.client.name,
+                last_name: this.client.last_name,
+                email: this.client.email,
+                phone_number: this.client.phone_number,
                 user_id: this.$route.params.id,
             });
             router.push('/login')
