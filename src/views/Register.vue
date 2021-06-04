@@ -67,16 +67,17 @@
                       :disabled="user.user_type === 'CLIENTE'"
                     >
                       <i slot="icon" class="fas fa-tools"></i>
-                      Registrarse como Cliente
+                      Registrarse como Proveedor
                     </base-button>
                     <base-button
+                    class="mt-3"
                       type="primary"
                       id="btnClient"
                       @click="setClientData"
                       :disabled="user.user_type === 'PROVEEDOR'"
                     >
                       <i slot="icon" class="fas fa-user"></i>
-                      Registrarse como Proveedor
+                      Registrarse como Cliente
                     </base-button>
                   </div>
                   <button class="btn btn-danger btn-block mt-5">
