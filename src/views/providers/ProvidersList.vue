@@ -1,30 +1,24 @@
 <template>
-    <table class="table" id="myTable">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nombre Empresa</th>
-      <th scope="col">N° de matrícula</th>
-      <th scope="col">Área de <br>trabajo</th>
-      <th scope="col">Email</th>
-      <th scope="col">Cuit</th>
-    
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="provider in providers" :key="provider">
-      <th scope="row"> {{ provider.id }} </th>
-      <td> {{ provider.business_name }} </td>
-      <td>  {{ provider.enrollment_number }} </td>
-      <td>  {{ provider.city_id }} </td>
-      <td>  {{ provider.email }} </td>
-      <td>  {{ provider.cuit_number }} </td>
-    
-    </tr>
-   
-  </tbody>
-</table>
+  <div>
 
+    <b-table striped hover 
+    :items="providers" 
+    :fields="fields"
+    id="my-table"
+    :per-page="perPage"
+    :current-page="currentPage"
+    >
+    </b-table>
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
+  </div>
+</template>
   
 
 </template>
@@ -38,7 +32,10 @@ import axios from "axios";
 export default {
     data() {
     return {
-      providers: []
+      fields: ['id', 'business_name', 'enrollment_number', 'city_id', 'email', 'cuit_number'],
+      providers: [],
+      perPage: 15,
+      currentPage: 1,
     };
     },
     mounted() {
@@ -46,9 +43,10 @@ export default {
     },
     methods: {
         mytable(){
-            $(document).ready( function () {
-            $('#myTable').DataTable();
-            } );
+            $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+          });
         },
 
         async getProviders() {
@@ -58,8 +56,11 @@ export default {
                 this.mytable();
             })
         }
-
-        
+    },
+    computed: {
+      rows() {
+        return this.providers.length
+      }
     }
 }
 </script>

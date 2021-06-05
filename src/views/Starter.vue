@@ -60,7 +60,13 @@
         </div>
       </b-button>
 
-      <b-button variant="dark" id="buton" style="padding: 5px">
+      <b-button 
+      variant="dark" 
+      id="buton" 
+      style="padding: 5px"
+      @click="getProvidersList"
+      
+      >
         <i class="fas fa-users fa-3x"></i>
         <div>
           <label
@@ -74,7 +80,19 @@
   </div>
 </template>
 <script>
-export default {};
+
+import router from "../router";
+
+export default {
+
+  methods: {
+    getProvidersList() {
+      router.push("/providers")
+    }
+  }
+
+};
+
 </script>
 <style>
 .buttonContainer {
