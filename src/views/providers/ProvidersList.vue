@@ -16,7 +16,7 @@
       aria-controls="my-table"
     ></b-pagination>
 
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
+    <p class="mt-3">Página Actual: {{ currentPage }}</p>
   </div>
 </template>
   
@@ -34,7 +34,7 @@ export default {
     return {
       fields: ['id', 'business_name', 'enrollment_number', 'city_id', 'email', 'cuit_number'],
       providers: [],
-      perPage: 15,
+      perPage: 10,
       currentPage: 1,
     };
     },
