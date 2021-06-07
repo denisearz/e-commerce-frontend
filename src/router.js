@@ -56,16 +56,7 @@ export default new Router({
       }
     },
     {
-      path: "/profile",
-      name: "profile",
-      components: {
-        header: AppHeader,
-        default: Profile,
-        footer: AppFooter
-      }
-    },
-    {
-      path: "/providers/profile/{id}",
+      path: "/providers/profile",
       name: "ProviderProfile",
       components: {
         header: AppHeader,
