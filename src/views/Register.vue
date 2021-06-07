@@ -19,7 +19,6 @@
         <div class="row justify-content-center">
           <div class="col-7">
             <card
-              class=""
               id="template"
               type="secondary"
               shadow

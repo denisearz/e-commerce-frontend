@@ -8,6 +8,7 @@ import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 import ProviderRegister from "./views/providers/ProviderRegister";
 import ProviderCategories from "./views/providers/ProviderCategories";
+import ProvidersList from "./views/providers/ProvidersList";
 
 import ClientRegister from "./views/clients/ClientRegister";
 import Starter from "./views/Starter";
@@ -59,6 +60,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: Profile,
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/providers",
+      name: "ProvidersList",
+      components: {
+        header: AppHeader,
+        default: ProvidersList,
         footer: AppFooter
       }
     },
