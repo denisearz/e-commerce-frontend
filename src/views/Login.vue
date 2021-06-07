@@ -46,7 +46,7 @@
                     type="text"
                     class="form-control"
                     placeholder="Ingrese su eMail"
-                    v-model="email"
+                    v-model="user.email"
                   />
                 </div>
                 <div class="input-group mb-3">
@@ -58,7 +58,7 @@
                     type="password"
                     class="form-control"
                     placeholder="Ingrese su contraseña"
-                    v-model="password"
+                    v-model="user.password"
                   />
                 </div>
                 <button class="btn btn-primary btn-block">Ingresar</button>
@@ -73,22 +73,30 @@
 <script>
 import axios from "axios";
 const BASEURL = process.env.VUE_APP_BASEURL;
+import router from "../router";
+
 
 export default {
   name: "login",
   data() {
     return {
-      email: "",
-      password: "",
+      user: {
+        email: "",
+        password: "",
+      },
     };
   },
+ 
   methods: {
     async handleSubmit() {
       const response = await axios.post(`${BASEURL}/auth/login`, {
-        email: this.email,
-        password: this.password,
+        email: this.user.email,
+        password: this.user.password,
       });
+      console.log(response.data.user);
       localStorage.setItem("token", response.data.access_token);
+      localStorage.setItem("currentUser", response.data.user.id);
+      localStorage.setItem("currentUserType", response.data.user.user_type);
 
       router.push("/");
     },
