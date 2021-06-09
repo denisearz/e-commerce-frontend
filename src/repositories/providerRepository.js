@@ -10,7 +10,7 @@ export default {
   getProviderByUserId: async (userId) => {
     try {
     
-        let url = 'http://localhost/provider/user/' + userId;
+        let url = 'http://localhost/provider/byUser/' + userId;
 
         let response = await Axios.get(url);
       
@@ -50,11 +50,10 @@ export default {
    getSpeciaityProvider: async (providerId) => {
     try {
     
-        let url = 'http://localhost/specialityCategories/showbyProviderId/' + providerId;
+        let url = 'http://localhost/providersSpecialities/showbyProviderId/' + providerId;
 
         let response = await Axios.get(url);
       
-
         return response.data;
 
     } catch (error) {

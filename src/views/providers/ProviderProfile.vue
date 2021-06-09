@@ -24,7 +24,7 @@
                 body-classes="px-lg-5 py-lg-5"
                 class="border-0"
             >
-            <div class="row justify-content-center ">
+                <div class="row justify-content-center ">
                     <h2 class="text-center" >DATOS DEL PROVEEDOR</h2>
                 </div>
             
@@ -95,14 +95,14 @@
                                             <h6 class="mb-0"> {{category.categoryName}}</h6>
                                         
                                             <div v-for="speciality in specialityProvider"
-                                                :key="speciality.id"
+                                                :key="speciality.speciality_id"
                                                 id="collapseOne" 
                                                 class="collapse show" 
                                                 aria-labelledby="headingOne" 
                                                 data-parent="#accordion">
                                                 <div class="card-body"
-                                                    v-if = "speciality.category == category.categoryName">
-                                                    {{speciality.speciality}}
+                                                    v-if = "speciality.category_id == category.id">
+                                                    {{speciality.specility_description}}
                                                 </div>
                                             </div>
                                         </div>
@@ -172,7 +172,6 @@ export default {
         if (this.userId>0){
             this.providerInfo = await ProviderRepository.getProviderByUserId(this.userId);
 
-            this.console
             //Si me devolvió datos, pido las categorías a las que pertenece el provider
             if (this.providerInfo){
                 //Obtengo las categorías
@@ -190,17 +189,8 @@ export default {
                 }
                 
                 //Obtengo las especialidades
-                let especialidades = await ProviderRepository.getSpeciaityProvider(this.providerInfo.provider_id)
-                
-                this.specialityProvider = especialidades.map(function(element){
-                    var item = new Object();
-                    item.id = element.category.id
-                    item.category = element.category.name
-                    item.speciality = element.speciality.description
-                    return  item;
-                })
-                console.log (this.specialityProvider);
-
+                this.specialityProvider  = await ProviderRepository.getSpeciaityProvider(this.providerInfo.provider_id)
+        
             }else{
                 this.error ="No se obtuvo respuesta del servidor"
                 console.log(this.error);
