@@ -29,7 +29,7 @@
             class="border-0"
           >
             <div class="col text-center">
-              <font color="white" size="4">Paso 2-2</font>
+              <font color="white" size="4">Paso 2-3</font>
             </div>
             <template>
               <form
@@ -43,13 +43,33 @@
                   <div>
                     <div>
                       <div size="6"><p>Seleccione su categoría</p></div>
-                      <multiselect
-                        id="registerInput"
+                      <multiselect 
+
+                        id="registerInput2"
                         v-model="value"
                         placeholder="Seleccione el serivicio que brindará"
                         label="name"
                         track-by="code"
                         :options="categories"
+                        :multiple="true"
+                        :taggable="true"
+                        @tag="addTag"
+                      >
+                      </multiselect>
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <div size="6"><p>Seleccione su especialidad</p></div>
+                      <multiselect 
+                        v-for="category in categories"
+                        :key="category.id" 
+                        id="registerInput"
+                        v-model="specialities"
+                        placeholder="Seleccione sus especialidades"
+                        label="name"
+                        track-by="code"
+                        :options="specialities"
                         :multiple="true"
                         :taggable="true"
                         @tag="addTag"
@@ -75,12 +95,17 @@ import Vue from "vue";
 import { BootstrapVue } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 import Multiselect from "vue-multiselect";
+import { specialities } from '../../constants/constants';
 Vue.component("multiselect", Multiselect);
+
 
 export default {
   name: "ProviderCategories",
   data() {
     return {
+      specialities,
+      specialityProvider:"",
+      categoryProvider:"",
       formData: {
         category_id: "",
       },
@@ -98,10 +123,40 @@ export default {
         { name: "PINTOR", code: 4 },
         { name: "TECNICO DE AIRE ACONDICIONADO", code: 5 },
       ],
+     
     };
   },
 
   components: { Multiselect },
+  mounted(){
+    console.log(specialities[0].name)
+  },
+
+  async beforeMount() {
+                if (this.categories){
+                  this.categoryProvider= this.categories.map(function(element){
+                    var cat = new Object();
+                            cat.id = element.code
+                            cat.categoryName = element.name
+                        return cat
+                    })
+                    console.log(this.categoryProvider);
+                }else{
+                    this.categoryProvider[0]='Aún no tiene cargadas categorías'
+                }
+                
+                //Obtengo las especialidades
+                let especialidades = await ProviderRepository.getSpeciaityProvider(this.providerInfo.provider_id)
+                
+                this.specialityProvider = especialidades.map(function(element){
+                    var item = new Object();
+                    item.id = element.category.id
+                    item.category = element.category.name
+                    item.speciality = element.speciality.description
+                    return  item;
+                })
+                console.log (this.specialityProvider);
+  },
 
   methods: {
     async setCategories() {
@@ -114,7 +169,7 @@ export default {
           provider_id: this.$route.params.id,
         });
       }
-      router.push("/login");
+      router.push("/provider/specialities/create");
     },
 
     addTag(newTag) {
