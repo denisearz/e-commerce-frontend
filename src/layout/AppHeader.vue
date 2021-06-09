@@ -23,17 +23,27 @@
           </button>
         </ul>
       </div>
-      <div v-else>
-        <input disabled="true" id="userType" type="text" readonly v-model="user_type" />
-        <button
-          type="button"
-          class="btn btn-sm active login"
-          id="register"
-          @click="logout"
-        >
-          Cerrar Sesion
-        </button>
-      </div>
+
+      <div  class="position-relative" align="right" v-else>
+          <input
+            disabled="true"
+            id="userType"
+            type="text"
+            readonly
+            v-model="user_type"
+            checked
+            autocomplete="off"
+          />
+          <button
+            type="button"
+            class="btn btn-sm active login"
+            id="logout"
+            @click="logout"
+          >
+            <i class="fas fa-sign-out-alt"></i>
+            Cerrar Sesión
+          </button>
+        </div>
     </base-nav>
   </header>
 </template>
@@ -65,7 +75,6 @@ export default {
   },
 
   mounted() {
-    debugger;
     let user_type = localStorage.getItem("currentUserType");
     if (user_type !== null) {
       this.user_type = user_type;
@@ -73,7 +82,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      debugger;
       let user_type = localStorage.getItem("currentUserType");
       if (user_type !== null) {
         this.user_type = user_type;
@@ -112,7 +120,17 @@ export default {
     3px 2px 2px 3px rgba(255, 198, 10, 0.178);
 }
 #userType {
+  color: #fdfd96;
+  background-color: #454546;
+  width: 30%;
+  border-radius: 10%;
+}
+
+#logout {
   color: #fcfcf6;
   background-color: #454546;
+  border-top: 1px solid #fdfd96;
+  border-bottom: 1px solid #fdfd96;
+  font-size: 65%;
 }
 </style>
