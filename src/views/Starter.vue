@@ -54,24 +54,33 @@
         <div>
           <label
             for="fa-wrench"
-            style="color: #454546; top: 1.5rem; position: relative; right: 0.5rem"
+            style="
+              color: #454546;
+              top: 1.5rem;
+              position: relative;
+              right: 0.5rem;
+            "
             >Plomero</label
           >
         </div>
       </b-button>
 
-      <b-button 
-      variant="dark" 
-      id="buton" 
-      style="padding: 5px"
-      @click="getProvidersList"
-      
+      <b-button
+        variant="dark"
+        id="buton"
+        style="padding: 5px"
+        @click="getProvidersList"
       >
         <i class="fas fa-users fa-3x"></i>
         <div>
           <label
             for="fa-users"
-            style="color: #454546; top: 1.5rem; position: relative; right: 0.5rem"
+            style="
+              color: #454546;
+              top: 1.5rem;
+              position: relative;
+              right: 0.5rem;
+            "
             >Ver todos</label
           >
         </div>
@@ -80,19 +89,15 @@
   </div>
 </template>
 <script>
-
 import router from "../router";
 
 export default {
-
   methods: {
     getProvidersList() {
-      router.push("/providers")
-    }
-  }
-
+      router.push("/providers");
+    },
+  },
 };
-
 </script>
 <style>
 .buttonContainer {
@@ -102,10 +107,15 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
-.background{
-   
-    background: -webkit-linear-gradient(#454546, rgb(247, 247, 244)); /* For Safari 5.1 to 6.0 */
-    background: linear-gradient(#59595a, rgb(247, 247, 244)); /* Standard syntax */
+.background {
+  background: -webkit-linear-gradient(
+    #454546,
+    rgb(247, 247, 244)
+  ); /* For Safari 5.1 to 6.0 */
+  background: linear-gradient(
+    #59595a,
+    rgb(247, 247, 244)
+  ); /* Standard syntax */
 }
 
 #buton {
@@ -114,6 +124,6 @@ export default {
   border-radius: 12px;
 }
 #buton:hover {
-    color: #fdfd96;
+  color: #fdfd96;
 }
 </style>
