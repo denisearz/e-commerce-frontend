@@ -62,9 +62,9 @@
 
                             <ul class="list-group">
                                 <li v-for="item in this.categoryProvider"
-                                                    :key= "item.id" 
+                                                    :key= "item.category_id" 
                                                     class="list-group-item">
-                                    {{item.categoryName}}
+                                    {{item.category_name}}
                                 </li>               
                             </ul>
                         </div>
@@ -89,10 +89,10 @@
                                     <div class="card">
                                         <div 
                                             v-for="category in categoryProvider"
-                                            :key="category.id" 
+                                            :key="category.category_id" 
                                             class="card-header" 
                                             id="headingOne">
-                                            <h6 class="mb-0"> {{category.categoryName}}</h6>
+                                            <h6 class="mb-0"> {{category.category_name}}</h6>
                                         
                                             <div v-for="speciality in specialityProvider"
                                                 :key="speciality.speciality_id"
@@ -101,7 +101,7 @@
                                                 aria-labelledby="headingOne" 
                                                 data-parent="#accordion">
                                                 <div class="card-body"
-                                                    v-if = "speciality.category_id == category.id">
+                                                    v-if = "speciality.category_id == category.category_id">
                                                     {{speciality.specility_description}}
                                                 </div>
                                             </div>
@@ -175,22 +175,11 @@ export default {
             //Si me devolvió datos, pido las categorías a las que pertenece el provider
             if (this.providerInfo){
                 //Obtengo las categorías
-                let categorias = await ProviderRepository.getCategoryProvider(this.providerInfo.provider_id)
-                //Formateo las categorías
-                if (categorias){
-                    this.categoryProvider= categorias.map(function(element){
-                        var cat = new Object();
-                            cat.id = element.category.id
-                            cat.categoryName = element.category.name
-                        return cat
-                    })
-                }else{
-                    this.categoryProvider[0]='Aún no tiene cargadas categorías'
-                }
-                
+                this.categoryProvider = await ProviderRepository.getCategoryProvider(this.providerInfo.provider_id)
+                //console.log(this.categoryProvider)
+            
                 //Obtengo las especialidades
                 this.specialityProvider  = await ProviderRepository.getSpeciaityProvider(this.providerInfo.provider_id)
-        
             }else{
                 this.error ="No se obtuvo respuesta del servidor"
                 console.log(this.error);
