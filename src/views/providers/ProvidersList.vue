@@ -1,22 +1,5 @@
 <template>
   <div>
-    <!-- Default dropright button -->
-    <div class="btn-group dropright">
-      <button
-        type="button"
-        class="btn btn-secondary dropdown-toggle"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        Dropright
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-    </div>
     <div class="table">
       <b-table
         striped

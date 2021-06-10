@@ -13,9 +13,7 @@
       </svg>
     </div>
     <div class="buttonContainer">
-      <b-button variant="dark" id="buton"
-            @click="getProvidersList (1)" 
->
+      <b-button variant="dark" id="buton" @click="getProvidersList(1)">
         <i class="fas fa-burn fa-3x"></i>
         <label
           for="fa-burn"
@@ -24,8 +22,7 @@
         >
       </b-button>
 
-      <b-button variant="dark" id="buton"       @click="getProvidersList (4)" 
->
+      <b-button variant="dark" id="buton" @click="getProvidersList(4)">
         <i class="fas fa-paint-roller fa-3x"></i>
         <label
           for="fa-paint-roller"
@@ -34,8 +31,12 @@
         >
       </b-button>
 
-      <b-button variant="dark" id="buton" style="padding-left: 1.3rem"       @click="getProvidersList (3)" 
->
+      <b-button
+        variant="dark"
+        id="buton"
+        style="padding-left: 1.3rem"
+        @click="getProvidersList(3)"
+      >
         <i class="fas fa-bolt fa-3x"></i>
         <label
           for="fa-bolt"
@@ -44,9 +45,7 @@
         >
       </b-button>
 
-
-      <b-button id="buton" variant="dark"       @click="getProvidersList (5)" 
->
+      <b-button id="buton" variant="dark" @click="getProvidersList(5)">
         <i class="fas fa-fan fa-3x"></i>
         <label
           for="fa-fan"
@@ -55,10 +54,7 @@
         >
       </b-button>
 
-      <b-button variant="dark" id="buton"                
-      @click="getProvidersList (2)" 
-
->
+      <b-button variant="dark" id="buton" @click="getProvidersList(2)">
         <i class="fas fa-wrench fa-3x"></i>
         <div>
           <label
@@ -73,27 +69,6 @@
           >
         </div>
       </b-button>
-
-      <b-button
-        variant="dark"
-        id="buton"
-        style="padding: 5px"
-        @click="getProvidersList (0)"
-      >
-        <i class="fas fa-users fa-3x"></i>
-        <div>
-          <label
-            for="fa-users"
-            style="
-              color: #454546;
-              top: 1.5rem;
-              position: relative;
-              right: 0.5rem;
-            "
-            >Ver todos</label
-          >
-        </div>
-      </b-button>
     </div>
   </div>
 </template>
@@ -103,10 +78,11 @@ import router from "../router";
 export default {
   methods: {
     getProvidersList(category_id) {
-      router.push({ name: 'ProvidersList', params: { category_id:category_id }})
+      router.push({
+        name: "ProvidersList",
+        params: { category_id: category_id },
+      });
     },
-
- 
   },
 };
 </script>
