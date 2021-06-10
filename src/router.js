@@ -65,7 +65,7 @@ export default new Router({
       }
     },
     {
-      path: "/providers",
+      path: "/providers/:category_id",
       name: "ProvidersList",
       components: {
         header: AppHeader,

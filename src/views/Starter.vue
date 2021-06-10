@@ -13,7 +13,9 @@
       </svg>
     </div>
     <div class="buttonContainer">
-      <b-button variant="dark" id="buton">
+      <b-button variant="dark" id="buton"
+            @click="getProvidersList (1)" 
+>
         <i class="fas fa-burn fa-3x"></i>
         <label
           for="fa-burn"
@@ -22,7 +24,8 @@
         >
       </b-button>
 
-      <b-button variant="dark" id="buton">
+      <b-button variant="dark" id="buton"       @click="getProvidersList (4)" 
+>
         <i class="fas fa-paint-roller fa-3x"></i>
         <label
           for="fa-paint-roller"
@@ -31,7 +34,8 @@
         >
       </b-button>
 
-      <b-button variant="dark" id="buton" style="padding-left: 1.3rem">
+      <b-button variant="dark" id="buton" style="padding-left: 1.3rem"       @click="getProvidersList (3)" 
+>
         <i class="fas fa-bolt fa-3x"></i>
         <label
           for="fa-bolt"
@@ -40,7 +44,9 @@
         >
       </b-button>
 
-      <b-button id="buton" variant="dark">
+
+      <b-button id="buton" variant="dark"       @click="getProvidersList (5)" 
+>
         <i class="fas fa-fan fa-3x"></i>
         <label
           for="fa-fan"
@@ -49,7 +55,10 @@
         >
       </b-button>
 
-      <b-button variant="dark" id="buton">
+      <b-button variant="dark" id="buton"                
+      @click="getProvidersList (2)" 
+
+>
         <i class="fas fa-wrench fa-3x"></i>
         <div>
           <label
@@ -69,7 +78,7 @@
         variant="dark"
         id="buton"
         style="padding: 5px"
-        @click="getProvidersList"
+        @click="getProvidersList (0)"
       >
         <i class="fas fa-users fa-3x"></i>
         <div>
@@ -93,9 +102,11 @@ import router from "../router";
 
 export default {
   methods: {
-    getProvidersList() {
-      router.push("/providers");
+    getProvidersList(category_id) {
+      router.push({ name: 'ProvidersList', params: { category_id:category_id }})
     },
+
+ 
   },
 };
 </script>
