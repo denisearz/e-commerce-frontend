@@ -46,7 +46,7 @@
                       <multiselect 
 
                         id="registerInput2"
-                        v-model="value"
+                        v-model="selected"
                         placeholder="Seleccione el serivicio que brindará"
                         label="name"
                         track-by="code"
@@ -62,10 +62,10 @@
                     <div>
                       <div size="6"><p>Seleccione su especialidad</p></div>
                       <multiselect 
-                        v-for="category in categories"
-                        :key="category.id" 
+                        v-for="item in selected"
+                        :key="item.code" 
                         id="registerInput"
-                        v-model="specialities"
+                        v-model="specialitySelected"
                         placeholder="Seleccione sus especialidades"
                         label="name"
                         track-by="code"
@@ -73,6 +73,7 @@
                         :multiple="true"
                         :taggable="true"
                         @tag="addTag"
+                        class="mt-5"
                       >
                       </multiselect>
                     </div>
@@ -123,6 +124,8 @@ export default {
         { name: "PINTOR", code: 4 },
         { name: "TECNICO DE AIRE ACONDICIONADO", code: 5 },
       ],
+      selected:{},
+      specialitySelected:{}
      
     };
   },
@@ -130,32 +133,6 @@ export default {
   components: { Multiselect },
   mounted(){
     console.log(specialities[0].name)
-  },
-
-  async beforeMount() {
-                if (this.categories){
-                  this.categoryProvider= this.categories.map(function(element){
-                    var cat = new Object();
-                            cat.id = element.code
-                            cat.categoryName = element.name
-                        return cat
-                    })
-                    console.log(this.categoryProvider);
-                }else{
-                    this.categoryProvider[0]='Aún no tiene cargadas categorías'
-                }
-                
-                //Obtengo las especialidades
-                let especialidades = await ProviderRepository.getSpeciaityProvider(this.providerInfo.provider_id)
-                
-                this.specialityProvider = especialidades.map(function(element){
-                    var item = new Object();
-                    item.id = element.category.id
-                    item.category = element.category.name
-                    item.speciality = element.speciality.description
-                    return  item;
-                })
-                console.log (this.specialityProvider);
   },
 
   methods: {
