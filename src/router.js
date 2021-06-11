@@ -10,6 +10,7 @@ import ProviderRegister from "./views/providers/ProviderRegister";
 import ProviderCategories from "./views/providers/ProviderCategories";
 import ProvidersList from "./views/providers/ProvidersList";
 import ProviderProfile from "./views/providers/ProviderProfile";
+import ShoppingCart from "./views/ShoppingCart";
 
 import ClientRegister from "./views/clients/ClientRegister";
 import Starter from "./views/Starter";
@@ -79,6 +80,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: ProviderRegister,
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/shoppingcart",
+      name: "ShoppingCart",
+      components: {
+        header: AppHeader,
+        default: ShoppingCart,
         footer: AppFooter
       }
     },
