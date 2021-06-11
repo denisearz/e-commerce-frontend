@@ -29,7 +29,7 @@
             class="border-0"
           >
             <div class="col text-center">
-              <font color="white" size="4">Paso 2-3</font>
+              <font color="white" size="4">Paso 2-2</font>
             </div>
             <template>
               <form
@@ -50,10 +50,11 @@
                         placeholder="Seleccione el serivicio que brindará"
                         label="name"
                         track-by="code"
-                        :options="categories"
+                        :options="value"
                         :multiple="true"
                         :taggable="true"
                         @tag="addTag"
+                        @input="getSpecialitiesFromCategories()"
                       >
                       </multiselect>
                     </div>
@@ -67,8 +68,8 @@
                         id="registerInput"
                         v-model="specialitySelected"
                         placeholder="Seleccione sus especialidades"
-                        label="name"
-                        track-by="code"
+                        label="description"
+                        track-by="id"
                         :options="specialities"
                         :multiple="true"
                         :taggable="true"
@@ -96,7 +97,6 @@ import Vue from "vue";
 import { BootstrapVue } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 import Multiselect from "vue-multiselect";
-import { specialities } from '../../constants/constants';
 Vue.component("multiselect", Multiselect);
 
 
@@ -104,12 +104,10 @@ export default {
   name: "ProviderCategories",
   data() {
     return {
-      specialities,
+      specialities:[ this.gasistaSpecialities ],
       specialityProvider:"",
       categoryProvider:"",
-      formData: {
-        category_id: "",
-      },
+      category_id: [],
       value: [
         { name: "GASISTA", code: 1 },
         { name: "PLOMERO", code: 2 },
@@ -124,15 +122,20 @@ export default {
         { name: "PINTOR", code: 4 },
         { name: "TECNICO DE AIRE ACONDICIONADO", code: 5 },
       ],
-      selected:{},
-      specialitySelected:{}
+      selected:[],
+      specialitySelected:[],
+      gasistaSpecialities: [],
+      plomeroSpecialities: [],
+      electricistaSpecialities: [],
+      pintorSpecialities: [],
+      tecnicoSpecialities: []
      
     };
   },
 
   components: { Multiselect },
   mounted(){
-    console.log(specialities[0].name)
+    this.getCategoriesWithSpecialities();
   },
 
   methods: {
@@ -143,10 +146,35 @@ export default {
 
         await axios.post(`${BASEURL}/providersCategories/create`, {
           category_id: item,
-          provider_id: this.$route.params.id,
+          provider_id: id,
         });
       }
-      router.push("/provider/specialities/create");
+    },
+
+    async getSpecialitiesFromCategories(){
+      if (this.selected[0].code === 1) {
+        this.specialites = this.gasistaSpecialities
+        
+      }
+      
+    },
+
+    async getCategoriesWithSpecialities(){
+        let datos = await axios.get(`${BASEURL}/category/1`);
+        this.gasistaSpecialities = datos.data.speciality
+        console.log(this.gasistaSpecialities)
+        let datos2 = await axios.get(`${BASEURL}/category/2`);
+        this.plomeroSpecialities = datos2.data.speciality
+
+        let datos3 = await axios.get(`${BASEURL}/category/3`);
+        this.electricistaSpecialities = datos3.data.speciality
+
+        let datos4 = await axios.get(`${BASEURL}/category/4`);
+        this.pintorSpecialities = datos4.data.speciality
+
+         let datos5 = await axios.get(`${BASEURL}/category/5`);
+        this.tecnicoSpecialities = datos5.data.speciality
+
     },
 
     addTag(newTag) {
