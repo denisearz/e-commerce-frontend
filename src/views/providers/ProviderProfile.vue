@@ -176,8 +176,7 @@ export default {
             if (this.providerInfo){
                 //Obtengo las categorías
                 this.categoryProvider = await ProviderRepository.getCategoryProvider(this.providerInfo.provider_id)
-                //console.log(this.categoryProvider)
-            
+                
                 //Obtengo las especialidades
                 this.specialityProvider  = await ProviderRepository.getSpeciaityProvider(this.providerInfo.provider_id)
             }else{

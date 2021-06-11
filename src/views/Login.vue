@@ -98,7 +98,7 @@ export default {
       localStorage.setItem("currentUser", response.data.user.id);
       localStorage.setItem("currentUserType", response.data.user.user_type);
 
-      router.push("/");
+      response.data.user.user_type == 'PROVEEDOR'? router.push(`/provider/profile/${response.data.user.id}`): router.push("/")
     },
   },
 };

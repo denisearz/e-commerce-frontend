@@ -9,8 +9,13 @@
         id="my-table"
         :per-page="perPage"
         :current-page="currentPage"
+        @row-clicked="verPerfil"
       >
+        <template v-slot:cell()="data">
+          <span title='Ver Perfil'>{{ data.value}}</span>
+        </template>
       </b-table>
+
       <b-pagination
         v-model="currentPage"
         :total-rows="rows"
@@ -38,7 +43,7 @@ export default {
         "enrollment_number",
         "city_id",
         "email",
-        "cuit_number",
+        "cuit_number"
       ],
       providers: [],
       perPage: 10,
@@ -52,18 +57,27 @@ export default {
     mytable() {
       $(document).ready(function () {
         $("#dtBasicExample").DataTable();
+        $("#dtBasicExample").DataTable();
         $(".dataTables_length").addClass("bs-select");
       });
+
+      
     },
 
     async getProviders() {
       let category_id = this.$route.params.category_id;
       let params = (category_id != 0 && category_id != null) ? "?category_id="+category_id : "";
+      
       await axios.get(`${BASEURL}/provider`+params).then((response) => {
         this.providers = response.data;
         this.mytable();
       });
+
+      
     },
+    verPerfil(record, index) {
+      router.push(`/provider/profile/${record.user_id}`)
+    }
   },
   computed: {
     rows() {
@@ -76,5 +90,6 @@ export default {
 <style >
 #table {
   margin-top: 100%;
+  cursor: pointer;
 }
 </style>
