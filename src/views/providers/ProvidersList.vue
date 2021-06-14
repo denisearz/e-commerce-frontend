@@ -57,11 +57,8 @@ export default {
     mytable() {
       $(document).ready(function () {
         $("#dtBasicExample").DataTable();
-        $("#dtBasicExample").DataTable();
         $(".dataTables_length").addClass("bs-select");
       });
-
-      
     },
 
     async getProviders() {
