@@ -45,7 +45,7 @@
                       <div size="6"><p>Seleccione su categoría</p></div>
                       <multiselect
                         id="registerInput"
-                        v-model="value"
+                        v-model="selected"
                         placeholder="Seleccione el serivicio que brindará"
                         label="name"
                         track-by="code"
@@ -98,6 +98,7 @@ export default {
         { name: "PINTOR", code: 4 },
         { name: "TECNICO DE AIRE ACONDICIONADO", code: 5 },
       ],
+      selected: [],
     };
   },
 
@@ -106,15 +107,19 @@ export default {
   methods: {
     async setCategories() {
       // Cuenta la cantidad de items y los recorre
-      for (var i = 0; i < this.value.length; i++) {
-        let item = this.value[i].code;
+      for (var i = 0; i < this.selected.length; i++) {
+        let item = this.selected[i].code;
 
-        await axios.post(`${BASEURL}/providersCategories/create`, {
+        const categorias = await axios.post(`${BASEURL}/providersCategories/create`, {
           category_id: item,
           provider_id: this.$route.params.id,
         });
+          console.log(categorias);
+      router.push({
+          name: "ProviderSpecialities",
+          params: { id: categorias.data.id, categories: this.selected },
+        });
       }
-      router.push("/login");
     },
 
     addTag(newTag) {
