@@ -56,6 +56,37 @@
                       >
                       </multiselect>
                     </div>
+
+                      <div>
+                        <b-form-checkbox
+                          id="checkbox-1"
+                          name="checkbox-1"
+                          value="accepted"
+                          @input="categoriesWithSpecialities()"
+                        >
+                          Confirmar Categorías
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                      <multiselect
+                        v-for="item in selected"
+                        :key="item.code"
+                        id="registerInput"
+                        v-model="specialitySelected"
+                        placeholder="Seleccione el serivicio que brindará"
+                        label="description"
+                        track-by="id"
+                        :options="specialities"
+                        :multiple="true"
+                        :taggable="true"
+                        @tag="addTag"
+                        class="mt-5"
+                      >
+                      </multiselect>
+
+                      
+                    </div>
                   </div>
                 </template>
                 <button class="btn btn-danger btn-block mt-5">Confirmar</button>
@@ -98,7 +129,9 @@ export default {
         { name: "PINTOR", code: 4 },
         { name: "TECNICO DE AIRE ACONDICIONADO", code: 5 },
       ],
+      specialities: [],
       selected: [],
+      specialitySelected: [],
     };
   },
 
@@ -114,11 +147,20 @@ export default {
           category_id: item,
           provider_id: this.$route.params.id,
         });
-          console.log(categorias);
       router.push({
           name: "ProviderSpecialities",
           params: { id: categorias.data.id, categories: this.selected },
         });
+      }
+      
+    },
+
+    async categoriesWithSpecialities() {
+      for (var i = 0; i < this.selected.length; i++) {
+      this.item = this.selected[i].code;
+      console.log(this.selected)
+      const especialidades = await axios.get(`${BASEURL}/category/${this.item}`)
+      this.specialities = especialidades.data.speciality
       }
     },
 
